@@ -1,4 +1,4 @@
-se.gu.my_first_app
+com.example.attgora
 attr alpha
 attr font
 attr fontProviderAuthority

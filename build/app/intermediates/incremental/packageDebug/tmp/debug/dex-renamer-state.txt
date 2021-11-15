@@ -1,4 +1,4 @@
-#Thu Nov 11 14:37:35 CET 2021
-base.0=C\:\\Users\\agato\\StudioProjects\\ToDoList\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Mon Nov 15 11:19:04 CET 2021
+base.0=C\:\\Users\\agato\\StudioProjects\\AttGora\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

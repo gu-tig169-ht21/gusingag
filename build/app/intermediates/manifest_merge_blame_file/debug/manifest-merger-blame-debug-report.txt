@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="se.gu.my_first_app"
+3    package="com.example.attgora"
 4    android:versionCode="1"
 5    android:versionName="1.0.0" >
 6
@@ -22,11 +22,11 @@
 18        android:debuggable="true"
 19        android:icon="@mipmap/ic_launcher"
 19-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:5:9-43
-20        android:label="my_first_app" >
-20-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:4:9-37
+20        android:label="attgora" >
+20-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:4:9-32
 21        <activity
 21-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:6:9-34:20
-22            android:name="se.gu.my_first_app.MainActivity"
+22            android:name="com.example.attgora.MainActivity"
 22-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:7:13-41
 23            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 23-->C:\Users\agato\StudioProjects\ToDoList\android\app\src\main\AndroidManifest.xml:10:13-163

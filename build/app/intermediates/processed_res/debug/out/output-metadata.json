@@ -4,7 +4,7 @@
     "type": "PROCESSED_RES",
     "kind": "Directory"
   },
-  "applicationId": "se.gu.my_first_app",
+  "applicationId": "com.example.attgora",
   "variantName": "processDebugResources",
   "elements": [
     {
