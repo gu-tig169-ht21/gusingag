@@ -1,79 +1,152 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(new TodoApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Todo {
+  Todo({required this.name, required this.checked});
+  final String name;
+  bool checked;
+}
+
+class TodoItem extends StatelessWidget {
+  TodoItem({
+    required this.todo,
+    required this.onTodoChanged,
+  }) : super(key: ObjectKey(todo));
+
+  final Todo todo;
+  final onTodoChanged;
+
+  TextStyle? _getTextStyle(bool checked) {
+    if (!checked) return null;
+
+    return TextStyle(
+      fontFamily: 'RobotoCondensed',
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough,
+    );
+  }
+  bool _checked = false;
 
   @override
   Widget build(BuildContext context) {
-    const title = 'What you need to do today';
-    return MaterialApp(
-      title: title,
-      theme: ThemeData(fontFamily: 'RobotoCondensed'),
-      home: Scaffold(
-        appBar: AppBar(
-          leading: Icon(
-            Icons.account_box_rounded,
-            size: 35,
-          ),
-          title: const Text(
-            'Att göra idag:',
-            style: TextStyle(fontSize: 30),),
-          backgroundColor: Colors.deepPurple,
+    return Card(
+        child: CheckboxListTile(
+          title: Text(todo.name, style: _getTextStyle(todo.checked)),
+          value: todo.checked,
+          onChanged: (newValue) {
+            onTodoChanged(todo);
+          },
+          controlAffinity: ListTileControlAffinity.leading,
+        ));
+  }
+
+  void setState(Null Function() param0) {}
+}
+
+class TodoList extends StatefulWidget {
+  @override
+  _TodoListState createState() => new _TodoListState();
+}
+
+class _TodoListState extends State<TodoList> {
+  final TextEditingController _textFieldController = TextEditingController();
+  final List<Todo> _todos = <Todo>[];
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        leading: Icon(
+        Icons.account_circle_outlined,
+        size: 35,
         ),
-        body: ListView(
-          children: const <Widget>[
-            ListTile(
-                title: Text(
-                  'Träna',
-                  style: TextStyle(fontSize: 30),),
-                leading:  Icon(
-                  Icons.check,
-                  size: 35,
-                )
-            ),
-            ListTile(
-                leading: Icon(
-                  Icons.check,
-                  size: 35,
-                ),
-                title: Text(
-                  'Plugga?',
-                  style: TextStyle(fontSize: 30),)
-            ),
-            ListTile(
-                title: Text(
-                  'Spela Apex',
-                  style: TextStyle(fontSize: 30),),
-                leading:  Icon(
-                  Icons.check,
-                  size: 35,
-                )
-            ),
-          ],
+        title: new Text(
+            'Att göra',
+          style: TextStyle(fontFamily: 'RobotoCondensed', fontSize: 30),
         ),
-        floatingActionButton: new FloatingActionButton(
-            elevation: 0.0,
-            child: new Icon(Icons.add_sharp),
-            backgroundColor: Colors.deepPurple,
-            onPressed: (){}
-        ),
+        backgroundColor: Colors.deepPurple,
       ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 7.0,),
+        children: _todos.map((Todo todo) {
+          return TodoItem(
+            todo: todo,
+            onTodoChanged: _handleTodoChange,
+          );
+        }).toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => _displayDialog(),
+          tooltip: 'Lägg till aktivitet',
+          backgroundColor: Colors.deepPurple,
+          child: Icon(Icons.add)),
+
+
+
+    );
+  }
+
+  void _handleTodoChange(Todo todo) {
+    setState(() {
+      todo.checked = !todo.checked;
+    });
+  }
+
+  void _addTodoItem(String name) {
+    setState(() {
+      _todos.add(Todo(name: name, checked: false));
+    });
+    _textFieldController.clear();
+  }
+
+  Future<void> _displayDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Lägg till aktivitet',
+            style: TextStyle(fontFamily: 'RobotoCondensed', fontSize: 25, color: Colors.deepPurple),
+        ),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: const InputDecoration(hintText: 'Skriv din aktivitet'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                  'Avbryt',
+              style: TextStyle(fontFamily: 'RobotoCondensed', fontSize: 20, color: Colors.deepPurple),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                  'Lägg till',
+                style: TextStyle(fontFamily: 'RobotoCondensed', fontSize: 20, color: Colors.deepPurple),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _addTodoItem(_textFieldController.text);
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }
-class MyWidget extends StatelessWidget {
+
+class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                "https://www.teahub.io/photos/full/8-87200_android-app-background-white.jpg")),
-      ),
+    return new MaterialApp(
+      title: 'Att göra idag',
+      home: new TodoList(),
     );
   }
 }
