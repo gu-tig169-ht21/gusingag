@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'Todoprovider.dart';
 
 void main() => runApp(new TodoApp());
 
@@ -26,7 +28,6 @@ class TodoItem extends StatelessWidget {
       decoration: TextDecoration.lineThrough,
     );
   }
-  bool _checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,20 +56,34 @@ class _TodoListState extends State<TodoList> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         leading: Icon(
         Icons.account_circle_outlined,
         size: 35,
         ),
-        title: new Text(
+        title: Text(
             'Att göra',
           style: TextStyle(fontFamily: 'RobotoCondensed', fontSize: 30),
         ),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              setState(() {
+                Provider.of<TodoProvider>(context, listen: false)
+                    .setFilterBy(value);
+              });
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(child: Text('Alla aktiviteter'), value: '1'),
+              const PopupMenuItem(child: Text('Genomförda'), value: '2'),
+              const PopupMenuItem(child: Text('Kvar att göra'), value: '3')
+            ],
+          )
+        ],
         backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 7.0,),
         children: _todos.map((Todo todo) {
           return TodoItem(
             todo: todo,
@@ -81,11 +96,9 @@ class _TodoListState extends State<TodoList> {
           tooltip: 'Lägg till aktivitet',
           backgroundColor: Colors.deepPurple,
           child: Icon(Icons.add)),
-
-
-
     );
   }
+
 
   void _handleTodoChange(Todo todo) {
     setState(() {
