@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/Todoprovider.dart';
 import 'package:provider/provider.dart';
-import 'Todoprovider.dart';
+
 
 void main() => runApp(new TodoApp());
 
@@ -35,11 +36,40 @@ class TodoItem extends StatelessWidget {
         child: CheckboxListTile(
           title: Text(todo.name, style: _getTextStyle(todo.checked)),
           value: todo.checked,
+          secondary: deleteButton(context, todo, todo.name),
           onChanged: (newValue) {
             onTodoChanged(todo);
           },
           controlAffinity: ListTileControlAffinity.leading,
         ));
+  }
+  Widget deleteButton(BuildContext context, todo, String name) {
+    return IconButton(
+      icon: const Icon(Icons.delete_outline),
+      color: Colors.deepPurple,
+      tooltip: "Delete",
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Varning'),
+          content: Text("Radera '$name'?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Avbryt'),
+            ),
+            TextButton(
+              onPressed: () {
+                Provider.of<TodoProvider>(context, listen: false)
+                    .removeTodo(todo);
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void setState(Null Function() param0) {}
