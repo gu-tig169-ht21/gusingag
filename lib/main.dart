@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
+=======
+import 'package:my_first_app/Todosprovider.dart';
+import 'package:my_first_app/home.dart';
+import 'package:provider/provider.dart';
+>>>>>>> Stashed changes
 
 void main() => runApp(const MyApp());
 
+<<<<<<< Updated upstream
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -77,3 +84,32 @@ class MyWidget extends StatelessWidget {
     );
   }
 }
+=======
+
+void main() async {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    var ip = TodosProvider();
+    ip.getName();
+    return ChangeNotifierProvider(
+      create: (context) => ip,
+      child: MaterialApp(
+        title: 'Att göra idag',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: Home()));
+  }
+}
+
+
+>>>>>>> Stashed changes
