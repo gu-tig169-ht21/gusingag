@@ -34,11 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-<<<<<<< Updated upstream
-=======
   provider: ^6.0.1
   http: ^0.13.4
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
@@ -98,3 +95,6 @@ flutter:
         - asset: fonts/RobotoCondensed-Regular.ttf
         - asset: fonts/RobotoCondensed-Bold.ttf
           weight: 700
+
+
+
