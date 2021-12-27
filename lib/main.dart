@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_app/Todosprovider.dart';
+import 'providers/todos_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:my_first_app/home.dart';
-<<<<<<< Updated upstream
-
-
-=======
-import 'package:my_first_app/home.dart';
->>>>>>> Stashed changes
+import 'views/home.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -32,8 +26,5 @@ class MyApp extends StatelessWidget {
             home: Home()));
   }
 }
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
